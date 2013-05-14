@@ -1,11 +1,11 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGVariableDeclarationStatementNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGVariableDeclarationStatementNode;
 
 
 /**
- * •Ï”éŒ¾•¶‚ğ•\‚·ƒm[ƒh
+ * ï¿½Ïï¿½ï¿½éŒ¾ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½mï¿½[ï¿½h
  * 
  * @author higo
  *

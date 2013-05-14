@@ -1,12 +1,12 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGParameterInNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGParameterInNode;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ParameterInfo;
 
 
 /**
- * ˆø”‚ğ•\‚·PDGƒm[ƒh
+ * ï¿½ï¿½ï¿½\ï¿½ï¿½PDGï¿½mï¿½[ï¿½h
  * 
  * @author higo
  * 
@@ -14,7 +14,7 @@ import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ParameterInfo;
 public class PDGParameterInNode extends PDGDataNode<CFGParameterInNode> implements PDGDataInNode {
 
     /**
-     * ˆø”‚Å—^‚¦‚ç‚ê‚½parameter‚©‚çPDGParameterNode‚ğì¬‚µ‚Ä•Ô‚·
+     * ï¿½ï¿½Å—^ï¿½ï¿½ï¿½ï¿½ê‚½parameterï¿½ï¿½ï¿½ï¿½PDGParameterNodeï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½Ä•Ô‚ï¿½
      * 
      * @param parameter
      * @return
@@ -30,7 +30,7 @@ public class PDGParameterInNode extends PDGDataNode<CFGParameterInNode> implemen
     }
 
     /**
-     * cfgƒm[ƒh‚ğ—^‚¦‚Ä‰Šú‰»D ‚±‚ÌƒNƒ‰ƒX“à‚Ì getInstanceƒƒ\ƒbƒh‚©‚ç‚Ì‚İŒÄ‚Ño‚³‚ê‚é
+     * cfgï¿½mï¿½[ï¿½hï¿½ï¿½^ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½D ï¿½ï¿½ï¿½ÌƒNï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ getInstanceï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½ï¿½Ì‚İŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½
      * 
      * @param parameter
      */

@@ -1,7 +1,7 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGForeachControlNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGForeachControlNode;
 
 
 public class PDGForeachControlNode extends PDGControlNode {

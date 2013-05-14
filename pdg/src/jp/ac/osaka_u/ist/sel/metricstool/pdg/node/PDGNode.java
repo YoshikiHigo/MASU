@@ -5,10 +5,11 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicLong;
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.CFGUtility;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGControlNode;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGNode;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGNormalNode;
+import sdl.ist.osaka_u.newmasu.cfg.CFGUtility;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGControlNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGNormalNode;
+
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CallInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ExecutableElementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.MethodCallInfo;
@@ -22,18 +23,18 @@ import jp.ac.osaka_u.ist.sel.metricstool.pdg.edge.PDGExecutionDependenceEdge;
 import jp.ac.osaka_u.ist.sel.metricstool.pdg.edge.PDGReturnDependenceEdge;
 
 /**
- * PDG‚ğ\¬‚·‚éƒm[ƒh‚ğ•\‚·ƒNƒ‰ƒX
+ * PDGï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½hï¿½ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  * 
  * @author t-miyake, higo
  * 
  * @param <T>
- *            ƒm[ƒh‚ÌŠj‚Æ‚È‚éî•ñ‚ÌŒ^
+ *            ï¿½mï¿½[ï¿½hï¿½ÌŠjï¿½Æ‚È‚ï¿½ï¿½ï¿½ÌŒ^
  */
 public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>>
 		implements Comparable<PDGNode<?>> {
 
 	/**
-	 * CFGƒm[ƒh‚©‚çPDGƒm[ƒh‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+	 * CFGï¿½mï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½PDGï¿½mï¿½[ï¿½hï¿½ğ¶ï¿½ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
 	 * 
 	 * @param cfgNode
 	 * @return
@@ -52,17 +53,17 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ƒtƒHƒ[ƒhƒGƒbƒWi‚±‚Ìƒm[ƒh‚©‚ç‚ÌˆË‘¶•Ój
+	 * ï¿½tï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½Wï¿½iï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ÌˆË‘ï¿½ï¿½Ój
 	 */
 	private final SortedSet<PDGEdge> forwardEdges;
 
 	/**
-	 * ƒoƒbƒNƒ[ƒhƒGƒbƒWi‚±‚Ìƒm[ƒh‚Ö‚ÌˆË‘¶•Ój
+	 * ï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½Wï¿½iï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ö‚ÌˆË‘ï¿½ï¿½Ój
 	 */
 	private final SortedSet<PDGEdge> backwardEdges;
 
 	/**
-	 * ƒm[ƒh‚ÌŠj‚Æ‚È‚éî•ñ
+	 * ï¿½mï¿½[ï¿½hï¿½ÌŠjï¿½Æ‚È‚ï¿½ï¿½ï¿½
 	 */
 	protected final T cfgNode;
 
@@ -73,10 +74,10 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	private static final AtomicLong MAKE_INDEX = new AtomicLong(0);
 
 	/**
-	 * ƒm[ƒh‚ÌŠj‚Æ‚È‚éî•ñ‚ğ—^‚¦‚Ä‰Šú‰»
+	 * ï¿½mï¿½[ï¿½hï¿½ÌŠjï¿½Æ‚È‚ï¿½ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½
 	 * 
 	 * @param core
-	 *            ƒm[ƒh‚ÌŠj‚Æ‚È‚éî•ñ
+	 *            ï¿½mï¿½[ï¿½hï¿½ÌŠjï¿½Æ‚È‚ï¿½ï¿½ï¿½
 	 */
 	protected PDGNode(final T node) {
 
@@ -95,7 +96,7 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚É‚ÄC•ÏX‚Ü‚½‚Í’è‹`‚³‚ê‚é•Ï”‚ÌSet
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½É‚ÄCï¿½ÏXï¿½Ü‚ï¿½ï¿½Í’ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½Set
 	 * 
 	 * @return
 	 */
@@ -108,7 +109,7 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚É‚ÄCQÆ‚³‚ê‚Ä‚¢‚é•Ï”‚ÌSet
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½É‚ÄCï¿½Qï¿½Æ‚ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½Set
 	 * 
 	 * @return
 	 */
@@ -121,7 +122,7 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ˆø”‚Å—^‚¦‚ç‚ê‚½•Ï”‚ª‚±‚Ìƒm[ƒh‚Å’è‹`‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ•Ô‚·
+	 * ï¿½ï¿½Å—^ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Å’ï¿½`ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 	 * 
 	 * @param variable
 	 * @return
@@ -132,7 +133,7 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ˆø”‚Å—^‚¦‚ç‚ê‚½•Ï”‚ª‚±‚Ìƒm[ƒh‚ÅQÆ‚³‚ê‚Ä‚¢‚é‚©‚ğ•Ô‚·
+	 * ï¿½ï¿½Å—^ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ÅQï¿½Æ‚ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½ï¿½Ô‚ï¿½
 	 * 
 	 * @param variable
 	 * @return
@@ -143,10 +144,10 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌƒtƒHƒ[ƒhƒGƒbƒW‚ğ’Ç‰Á
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½Wï¿½ï¿½Ç‰ï¿½
 	 * 
 	 * @param forwardEdge
-	 *            ‚±‚Ìƒm[ƒh‚ÌƒtƒHƒ[ƒhƒGƒbƒW
+	 *            ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½W
 	 */
 	public final boolean addForwardEdge(final PDGEdge forwardEdge) {
 		if (null == forwardEdge) {
@@ -161,7 +162,7 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌƒoƒbƒNƒ[ƒhƒGƒbƒW‚ğ’Ç‰Á
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ìƒoï¿½bï¿½Nï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½Wï¿½ï¿½Ç‰ï¿½
 	 * 
 	 * @param backwardEdge
 	 */
@@ -186,7 +187,7 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚©‚ç‚Ìƒf[ƒ^ˆË‘¶•Ó‚ğ’Ç‰Á
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½Ë‘ï¿½ï¿½Ó‚ï¿½Ç‰ï¿½
 	 * 
 	 * @param dependingNode
 	 */
@@ -245,25 +246,25 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌƒoƒbƒNƒ[ƒhƒGƒbƒW‚ğæ“¾
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ìƒoï¿½bï¿½Nï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½Wï¿½ï¿½ï¿½æ“¾
 	 * 
-	 * @return ‚±‚Ìƒm[ƒh‚ÌƒoƒbƒNƒ[ƒhƒGƒbƒW
+	 * @return ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ìƒoï¿½bï¿½Nï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½W
 	 */
 	public final SortedSet<PDGEdge> getBackwardEdges() {
 		return Collections.unmodifiableSortedSet(this.backwardEdges);
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌƒtƒHƒ[ƒhƒGƒbƒW‚ğæ“¾
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½Wï¿½ï¿½ï¿½æ“¾
 	 * 
-	 * @return ‚±‚Ìƒm[ƒh‚ÌƒtƒHƒ[ƒhƒGƒbƒW
+	 * @return ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½Gï¿½bï¿½W
 	 */
 	public final SortedSet<PDGEdge> getForwardEdges() {
 		return Collections.unmodifiableSortedSet(this.forwardEdges);
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh“à‚É‚¨‚¢‚ÄŒÄ‚Ño‚³‚ê‚Ä‚¢‚éƒƒ\ƒbƒh‚ªƒIƒuƒWƒFƒNƒg‚Ì“à—e‚ğ•Ï‚¦‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ•Ô‚·
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éƒï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ì“ï¿½ï¿½eï¿½ï¿½Ï‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 	 * 
 	 * @return
 	 */
@@ -298,16 +299,16 @@ public abstract class PDGNode<T extends CFGNode<? extends ExecutableElementInfo>
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌŒ³‚É‚È‚Á‚½ƒvƒƒOƒ‰ƒ€—v‘f
+	 * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ÌŒï¿½ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½vï¿½f
 	 * 
-	 * @return ‚±‚Ìƒm[ƒh‚ÌŒ³‚É‚È‚Á‚½ƒvƒƒOƒ‰ƒ€—v‘f
+	 * @return ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ÌŒï¿½ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½vï¿½f
 	 */
 	public final ExecutableElementInfo getCore() {
 		return this.getCFGNode().getCore();
 	}
 
 	/**
-	 * ‚±‚ÌPDGƒm[ƒh‚ÌŒ³‚Æ‚È‚Á‚½CFGƒm[ƒh
+	 * ï¿½ï¿½ï¿½ï¿½PDGï¿½mï¿½[ï¿½hï¿½ÌŒï¿½ï¿½Æ‚È‚ï¿½ï¿½ï¿½CFGï¿½mï¿½[ï¿½h
 	 * 
 	 * @return
 	 */

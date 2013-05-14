@@ -9,13 +9,14 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Map.Entry;
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.DISSOLUTION;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.IntraProceduralCFG;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGControlNode;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGNode;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGNormalNode;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.DefaultCFGNodeFactory;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.ICFGNodeFactory;
+import sdl.ist.osaka_u.newmasu.cfg.DISSOLUTION;
+import sdl.ist.osaka_u.newmasu.cfg.IntraProceduralCFG;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGControlNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGNormalNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.DefaultCFGNodeFactory;
+import sdl.ist.osaka_u.newmasu.cfg.node.ICFGNodeFactory;
+
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.BlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.BreakStatementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CallableUnitInfo;
@@ -52,7 +53,7 @@ import jp.ac.osaka_u.ist.sel.metricstool.pdg.node.PDGParameterInNode;
 import jp.ac.osaka_u.ist.sel.metricstool.pdg.node.PDGParameterOutNode;
 
 /**
- * Ћи‘±‚«“аPDG‚р•\‚·ѓNѓ‰ѓX
+ * пїЅи‘±пїЅпїЅпїЅпїЅPDGпїЅпїЅ\пїЅпїЅпїЅNпїЅпїЅпїЅX
  * 
  * @author t-miyake, higo
  * 
@@ -60,18 +61,18 @@ import jp.ac.osaka_u.ist.sel.metricstool.pdg.node.PDGParameterOutNode;
 public class IntraProceduralPDG extends PDG {
 
 	/**
-	 * PDG‚М“ьЊыѓmЃ[ѓh
+	 * PDGпїЅМ“пїЅпїЅmпїЅ[пїЅh
 	 */
 	// protected final SortedSet<PDGNode<?>> enterNodes;
 	protected final PDGMethodEnterNode enterNode;
 
 	/**
-	 * €шђ”InѓmЃ[ѓh‚рЉЗ—ќ‚·‚й•Пђ”
+	 * пїЅпїЅInпїЅmпїЅ[пїЅhпїЅпїЅпїЅЗ—пїЅпїЅпїЅпїЅпїЅПђпїЅ
 	 */
 	protected final Map<ParameterInfo, PDGParameterInNode> parameterInNodes;
 
 	/**
-	 * €шђ”OutѓmЃ[ѓh‚рЉЗ—ќ‚·‚й•Пђ”
+	 * пїЅпїЅOutпїЅmпїЅ[пїЅhпїЅпїЅпїЅЗ—пїЅпїЅпїЅпїЅпїЅПђпїЅ
 	 */
 	protected final Map<ParameterInfo, PDGParameterOutNode> parameterOutNodes;
 
@@ -80,7 +81,7 @@ public class IntraProceduralPDG extends PDG {
 	protected final Map<FieldInfo, PDGFieldOutNode> fieldOutNodes;
 
 	/**
-	 * PDG‚МЏoЊыѓmЃ[ѓh
+	 * PDGпїЅМЏoпїЅпїЅmпїЅ[пїЅh
 	 */
 	protected final SortedSet<PDGNode<?>> exitNodes;
 
@@ -105,33 +106,33 @@ public class IntraProceduralPDG extends PDG {
 	final int executionDependencyDistance;
 
 	/**
-	 * PDG‚рЌ\’zЋћ‚Й——p‚·‚йCFG
+	 * PDGпїЅпїЅпїЅ\пїЅzпїЅпїЅпїЅЙ—пїЅпїЅpпїЅпїЅпїЅпїЅCFG
 	 */
 	private final IntraProceduralCFG cfg;
 
 	/**
-	 * PDG‚рђ¶ђ¬‚·‚й
+	 * PDGпїЅрђ¶ђпїЅпїЅпїЅпїЅпїЅ
 	 * 
 	 * @param unit
-	 *            pdg‚рђ¶ђ¬‚·‚йѓ†ѓjѓbѓg
+	 *            pdgпїЅрђ¶ђпїЅпїЅпїЅпїЅйѓ†пїЅjпїЅbпїЅg
 	 * @param pdgNodeFactory
-	 *            PDG‚МѓmЃ[ѓhђ¶ђ¬‚Й—p‚ў‚йѓtѓ@ѓNѓgѓЉ
+	 *            PDGпїЅМѓmпїЅ[пїЅhпїЅпїЅпїЅпїЅпїЅЙ—pпїЅпїЅпїЅпїЅtпїЅ@пїЅNпїЅgпїЅпїЅ
 	 * @param cfgNodeFactory
-	 *            CFG‚МѓmЃ[ѓhђ¶ђ¬‚Й—p‚ў‚йѓtѓ@ѓNѓgѓЉ
+	 *            CFGпїЅМѓmпїЅ[пїЅhпїЅпїЅпїЅпїЅпїЅЙ—pпїЅпїЅпїЅпїЅtпїЅ@пїЅNпїЅgпїЅпїЅ
 	 * @param buildDataDependency
-	 *            Data Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Data DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param buildControlDependencey
-	 *            Control Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Control DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param buildExecutionDependency
-	 *            Execution Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Execution DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param countObjectStateChange
-	 *            ѓЃѓ\ѓbѓh“а•”‚Й‚ж‚йѓIѓuѓWѓFѓNѓg‚М•ПЌX‚рЌl—¶‚·‚й‚©
+	 *            пїЅпїЅпїЅ\пїЅbпїЅhпїЅпїЅпїЅпїЅпїЅЙ‚пїЅпїЅIпїЅuпїЅWпїЅFпїЅNпїЅgпїЅМ•ПЌXпїЅпїЅпїЅlпїЅпїЅпїЅпїЅпїЅй‚©
 	 * @param dataDependencyDistance
-	 *            ѓfЃ[ѓ^€Л‘¶•У‚р€ш‚­’ё“_ЉФ‚М‹——Ј‚Ми‡’lЃiЌs‚МЌ·Ѓj
+	 *            пїЅfпїЅ[пїЅ^пїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅпїЅ_пїЅФ‚М‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅiпїЅsпїЅМЌпїЅпїЅj
 	 * @param controlDependencyDistance
-	 *            ђ§Њд€Л‘¶•У‚р€ш‚­’ё“_ЉФ‚М‹——Ј‚Ми‡’lЃiЌs‚МЌ·Ѓj
+	 *            пїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅпїЅ_пїЅФ‚М‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅiпїЅsпїЅМЌпїЅпїЅj
 	 * @param executionDependencyDistance
-	 *            ЋАЌs€Л‘¶•У‚р€ш‚­’ё“_ЉФ‚М‹——Ј‚Ми‡’lЃiЌs‚МЌ·Ѓj
+	 *            пїЅпїЅпїЅsпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅпїЅ_пїЅФ‚М‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅiпїЅsпїЅМЌпїЅпїЅj
 	 */
 	public IntraProceduralPDG(final CallableUnitInfo unit,
 			final IPDGNodeFactory pdgNodeFactory,
@@ -176,22 +177,22 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * PDG‚рђ¶ђ¬‚·‚й
+	 * PDGпїЅрђ¶ђпїЅпїЅпїЅпїЅпїЅ
 	 * 
 	 * @param unit
-	 *            pdg‚рђ¶ђ¬‚·‚йѓ†ѓjѓbѓg
+	 *            pdgпїЅрђ¶ђпїЅпїЅпїЅпїЅйѓ†пїЅjпїЅbпїЅg
 	 * @param pdgNodeFactory
-	 *            PDG‚МѓmЃ[ѓhђ¶ђ¬‚Й—p‚ў‚йѓtѓ@ѓNѓgѓЉ
+	 *            PDGпїЅМѓmпїЅ[пїЅhпїЅпїЅпїЅпїЅпїЅЙ—pпїЅпїЅпїЅпїЅtпїЅ@пїЅNпїЅgпїЅпїЅ
 	 * @param cfgNodeFactory
-	 *            CFG‚МѓmЃ[ѓhђ¶ђ¬‚Й—p‚ў‚йѓtѓ@ѓNѓgѓЉ
+	 *            CFGпїЅМѓmпїЅ[пїЅhпїЅпїЅпїЅпїЅпїЅЙ—pпїЅпїЅпїЅпїЅtпїЅ@пїЅNпїЅgпїЅпїЅ
 	 * @param buildDataDependency
-	 *            Data Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Data DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param buildControlDependencey
-	 *            Control Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Control DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param buildExecutionDependency
-	 *            Execution Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Execution DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param countObjectStateChange
-	 *            ѓЃѓ\ѓbѓh“а•”‚Й‚ж‚йѓIѓuѓWѓFѓNѓg‚М•ПЌX‚рЌl—¶‚·‚й‚©
+	 *            пїЅпїЅпїЅ\пїЅbпїЅhпїЅпїЅпїЅпїЅпїЅЙ‚пїЅпїЅIпїЅuпїЅWпїЅFпїЅNпїЅgпїЅМ•ПЌXпїЅпїЅпїЅlпїЅпїЅпїЅпїЅпїЅй‚©
 	 */
 	public IntraProceduralPDG(final CallableUnitInfo unit,
 			final IPDGNodeFactory pdgNodeFactory,
@@ -209,20 +210,20 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * PDG‚рђ¶ђ¬‚·‚й
+	 * PDGпїЅрђ¶ђпїЅпїЅпїЅпїЅпїЅ
 	 * 
 	 * @param unit
-	 *            pdg‚рђ¶ђ¬‚·‚йѓ†ѓjѓbѓg
+	 *            pdgпїЅрђ¶ђпїЅпїЅпїЅпїЅйѓ†пїЅjпїЅbпїЅg
 	 * @param pdgNodeFactory
-	 *            PDG‚МѓmЃ[ѓhђ¶ђ¬‚Й—p‚ў‚йѓtѓ@ѓNѓgѓЉ
+	 *            PDGпїЅМѓmпїЅ[пїЅhпїЅпїЅпїЅпїЅпїЅЙ—pпїЅпїЅпїЅпїЅtпїЅ@пїЅNпїЅgпїЅпїЅ
 	 * @param cfgNodeFactory
-	 *            CFG‚МѓmЃ[ѓhђ¶ђ¬‚Й—p‚ў‚йѓtѓ@ѓNѓgѓЉ
+	 *            CFGпїЅМѓmпїЅ[пїЅhпїЅпїЅпїЅпїЅпїЅЙ—pпїЅпїЅпїЅпїЅtпїЅ@пїЅNпїЅgпїЅпїЅ
 	 * @param buildDataDependency
-	 *            Data Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Data DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param buildControlDependencey
-	 *            Control Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Control DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 * @param buildExecutionDependency
-	 *            Execution Dependency‚рђ¶ђ¬‚·‚й‚©ЃH
+	 *            Execution DependencyпїЅрђ¶ђпїЅпїЅпїЅпїЅй‚©пїЅH
 	 */
 	public IntraProceduralPDG(final CallableUnitInfo unit,
 			final IPDGNodeFactory pdgNodeFactory,
@@ -264,18 +265,18 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * “ьЊыѓmЃ[ѓh‚рЋж“ѕ
+	 * пїЅпїЅпїЅmпїЅ[пїЅhпїЅпїЅпїЅж“ѕ
 	 * 
-	 * @return “ьЊыѓmЃ[ѓh
+	 * @return пїЅпїЅпїЅmпїЅ[пїЅh
 	 */
 	public final PDGMethodEnterNode getMethodEnterNode() {
 		return this.enterNode;
 	}
 
 	/**
-	 * ЏoЊыѓmЃ[ѓh‚рЋж“ѕ
+	 * пїЅoпїЅпїЅmпїЅ[пїЅhпїЅпїЅпїЅж“ѕ
 	 * 
-	 * @return ЏoЊыѓmЃ[ѓh
+	 * @return пїЅoпїЅпїЅmпїЅ[пїЅh
 	 */
 	public final SortedSet<PDGNode<?>> getExitNodes() {
 		return Collections.unmodifiableSortedSet(this.exitNodes);
@@ -299,7 +300,7 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * ѓRѓ“ѓXѓgѓ‰ѓNѓ^‚Е—^‚¦‚з‚к‚ЅCallableUnitInfo‚МPDG‚рЌ\’z‚·‚й
+	 * пїЅRпїЅпїЅпїЅXпїЅgпїЅпїЅпїЅNпїЅ^пїЅЕ—^пїЅпїЅпїЅпїЅк‚ЅCallableUnitInfoпїЅпїЅPDGпїЅпїЅпїЅ\пїЅzпїЅпїЅпїЅпїЅ
 	 */
 	@Override
 	protected void buildPDG() {
@@ -307,7 +308,7 @@ public class IntraProceduralPDG extends PDG {
 		final CFGNode<?> cfgEnterNode = this.cfg.getEnterNode();
 
 		{
-			// ѓЃѓ\ѓbѓh‚МѓGѓ“ѓ^Ѓ[ѓmЃ[ѓh‚©‚з’јђЪ‚М“а•”•¶‚Й‘О‚µ‚Дђ§Њд€Л‘¶•У‚р€ш‚­
+			// пїЅпїЅпїЅ\пїЅbпїЅhпїЅМѓGпїЅпїЅпїЅ^пїЅ[пїЅmпїЅ[пїЅhпїЅпїЅпїЅз’јпїЅЪ‚М“пїЅпїЅпїЅпїЅпїЅпїЅЙ‘О‚пїЅпїЅДђпїЅпїЅпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
 			if (this.isBuiltControlDependency()) {
 				final PDGMethodEnterNode enterNode = this.getMethodEnterNode();
 				this.nodes.add(enterNode);
@@ -315,7 +316,7 @@ public class IntraProceduralPDG extends PDG {
 				this.buildControlDependence(enterNode, unit);
 			}
 
-			// ѓЃѓ\ѓbѓh‚МѓGѓ“ѓ^Ѓ[ѓmЃ[ѓh‚©‚зѓЃѓ\ѓbѓh“а‚ЕЌЕЏ‰‚ЙЋАЌs‚і‚к‚й•¶‚ЙЋАЌs€Л‘¶•У‚р€ш‚­
+			// пїЅпїЅпїЅ\пїЅbпїЅhпїЅМѓGпїЅпїЅпїЅ^пїЅ[пїЅmпїЅ[пїЅhпїЅпїЅпїЅзѓЃпїЅ\пїЅbпїЅhпїЅпїЅпїЅЕЌЕЏпїЅпїЅЙЋпїЅпїЅsпїЅпїЅпїЅпїЅй•¶пїЅЙЋпїЅпїЅsпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
 			if (this.isBuiltExecutionDependency()) {
 				if (null != cfgEnterNode) {
 					final PDGNode<?> toPDGNode = this.makeNode(cfgEnterNode);
@@ -324,17 +325,17 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// unit‚М€шђ”‚рЏ€—ќ
+		// unitпїЅМ€пїЅпїЅпїЅпїЅпїЅпїЅ
 		for (final ParameterInfo parameter : this.unit.getParameters()) {
 
-			// ParameterInNode‚рЌмђ¬
+			// ParameterInNodeпїЅпїЅпїЅмђ¬
 			final PDGParameterInNode parameterInNode = PDGParameterInNode
 					.getInstance(parameter);
 			this.pdgNodeFactory.addNode(parameterInNode);
 			this.nodes.add(parameterInNode);
 			this.parameterInNodes.put(parameter, parameterInNode);
 
-			// ParameterOutNode‚рЌмђ¬
+			// ParameterOutNodeпїЅпїЅпїЅмђ¬
 			if (parameter.getType() instanceof ReferenceTypeInfo) {
 				final PDGParameterOutNode parameterOutNode = PDGParameterOutNode
 						.getInstance(parameter);
@@ -349,7 +350,7 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// ЋQЏЖ‚і‚к‚Д‚ў‚йѓtѓBЃ[ѓ‹ѓh‚Й‚В‚ў‚ДЏ€—ќ
+		// пїЅQпїЅЖ‚пїЅпїЅпїЅД‚пїЅпїЅпїЅtпїЅBпїЅ[пїЅпїЅпїЅhпїЅЙ‚В‚пїЅпїЅДЏпїЅпїЅпїЅ
 		if (null != cfgEnterNode) {
 			final Set<FieldInfo> referencedFields = new HashSet<FieldInfo>();
 			for (final VariableUsageInfo<? extends VariableInfo<?>> variableUsage : this.unit
@@ -376,19 +377,19 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// CFG‚М“ьЊыѓmЃ[ѓh‚©‚зЏ€—ќ‚рЌs‚¤
+		// CFGпїЅМ“пїЅпїЅmпїЅ[пїЅhпїЅпїЅпїЅзЏ€пїЅпїЅпїЅпїЅпїЅsпїЅпїЅ
 		final Set<CFGNode<?>> checkedNodes = new HashSet<CFGNode<?>>();
 		if (null != cfgEnterNode) {
 			this.buildDependence(cfgEnterNode, checkedNodes);
 		}
 
-		// CFG‚МЏoЊыѓmЃ[ѓh‚НPDG‚МЏoЊыѓmЃ[ѓh‚Й‚И‚й
+		// CFGпїЅМЏoпїЅпїЅmпїЅ[пїЅhпїЅпїЅPDGпїЅМЏoпїЅпїЅmпїЅ[пїЅhпїЅЙ‚И‚пїЅ
 		for (final CFGNode<?> cfgExitNode : this.cfg.getExitNodes()) {
 			final PDGNode<?> pdgExitNode = this.makeNode(cfgExitNode);
 			this.exitNodes.add(pdgExitNode);
 		}
 
-		// Unreableble‚ИѓmЃ[ѓh‚Й‘О‚µ‚Д‚аЏ€—ќ‚рЌs‚¤
+		// UnreablebleпїЅИѓmпїЅ[пїЅhпїЅЙ‘О‚пїЅпїЅД‚пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅsпїЅпїЅ
 		if (!this.cfg.isEmpty()) {
 			final Set<CFGNode<?>> unreachableNodes = new HashSet<CFGNode<?>>();
 			unreachableNodes.addAll(this.cfg.getAllNodes());
@@ -399,7 +400,7 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// ParameterOutNode‚Ж‚М€Л‘¶ЉЦЊW‚рЌ\’z
+		// ParameterOutNodeпїЅЖ‚М€Л‘пїЅпїЅЦЊWпїЅпїЅпїЅ\пїЅz
 		for (final Entry<ParameterInfo, PDGParameterOutNode> entry : this.parameterOutNodes
 				.entrySet()) {
 			final ParameterInfo parameter = entry.getKey();
@@ -411,7 +412,7 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// FieldOutNode‚Ж‚М€Л‘¶ЉЦЊW‚рЌ\’z
+		// FieldOutNodeпїЅЖ‚М€Л‘пїЅпїЅЦЊWпїЅпїЅпїЅ\пїЅz
 		{
 			final Set<FieldInfo> assignedFields = new HashSet<FieldInfo>();
 			for (final VariableUsageInfo<? extends VariableInfo<?>> variableUsage : this.unit
@@ -449,21 +450,21 @@ public class IntraProceduralPDG extends PDG {
 			throw new IllegalArgumentException();
 		}
 
-		// Љщ‚Й’ІЌё‚і‚к‚Д‚ў‚йѓmЃ[ѓh‚Е‚ ‚йЏкЌ‡‚Н‰Ѕ‚а‚µ‚И‚ў
+		// пїЅпїЅЙ’пїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅпїЅmпїЅ[пїЅhпїЅЕ‚пїЅпїЅпїЅкЌ‡пїЅН‰пїЅпїЅпїЅпїЅпїЅпїЅИ‚пїЅ
 		if (checkedNodes.contains(cfgNode)) {
 			return;
 		}
 
-		// Њ»ЌЭ‚МѓmЃ[ѓh‚р’ІЌёЌП‚Э‚Й’З‰Б
+		// пїЅпїЅпїЅЭ‚МѓmпїЅ[пїЅhпїЅр’ІЌпїЅпїЅП‚Э‚Й’З‰пїЅ
 		else {
 			checkedNodes.add(cfgNode);
 		}
 
-		// —^‚¦‚з‚к‚ЅCFGѓmЃ[ѓh‚Й‘О‰ћ‚·‚йPDGѓmЃ[ѓh‚рЌмђ¬
+		// пїЅ^пїЅпїЅпїЅпїЅк‚ЅCFGпїЅmпїЅ[пїЅhпїЅЙ‘О‰пїЅпїЅпїЅпїЅпїЅPDGпїЅmпїЅ[пїЅhпїЅпїЅпїЅмђ¬
 		final PDGNode<?> pdgNode = this.makeNode(cfgNode);
 
-		// —^‚¦‚з‚к‚ЅCFGѓmЃ[ѓh‚Е’и‹`‚і‚к‚ЅЉe•Пђ”‚Й‘О‚µ‚ДЃC
-		// ‚»‚М•Пђ”‚рЋQЏЖ‚µ‚Д‚ў‚йѓmЃ[ѓh‚ЙDataDependence‚р€ш‚­
+		// пїЅ^пїЅпїЅпїЅпїЅк‚ЅCFGпїЅmпїЅ[пїЅhпїЅЕ’пїЅ`пїЅпїЅпїЅк‚ЅпїЅeпїЅПђпїЅпїЅЙ‘О‚пїЅпїЅДЃC
+		// пїЅпїЅпїЅМ•ПђпїЅпїЅпїЅпїЅQпїЅЖ‚пїЅпїЅД‚пїЅпїЅпїЅmпїЅ[пїЅhпїЅпїЅDataDependenceпїЅпїЅпїЅпїЅ
 		if (this.isBuiltDataDependency()) {
 			for (final VariableInfo<? extends UnitInfo> variable : cfgNode
 					.getDefinedVariables(this.countObjectStateChange)) {
@@ -477,7 +478,7 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// —^‚¦‚з‚к‚ЅCFGѓmЃ[ѓh‚©‚зControlDependence‚р€ш‚­
+		// пїЅ^пїЅпїЅпїЅпїЅк‚ЅCFGпїЅmпїЅ[пїЅhпїЅпїЅпїЅпїЅControlDependenceпїЅпїЅпїЅпїЅ
 		if (this.isBuiltControlDependency()) {
 			if (pdgNode instanceof PDGControlNode) {
 				final ConditionInfo condition = (ConditionInfo) cfgNode
@@ -487,7 +488,7 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// —^‚¦‚з‚к‚ЅCFGѓmЃ[ѓh‚©‚зExecutionDependence‚р€ш‚­
+		// пїЅ^пїЅпїЅпїЅпїЅк‚ЅCFGпїЅmпїЅ[пїЅhпїЅпїЅпїЅпїЅExecutionDependenceпїЅпїЅпїЅпїЅ
 		if (this.isBuiltExecutionDependency()) {
 			final PDGNode<?> fromPDGNode = this.makeNode(cfgNode);
 			for (final CFGNode<?> toNode : cfgNode.getForwardNodes()) {
@@ -507,7 +508,7 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * ‘ж€к€шђ”‚Е—^‚¦‚з‚к‚ЅCFG‚МѓmЃ[ѓh‚Й‘О‚µ‚ДЃC‘ж“с€шђ”‚Е—^‚¦‚з‚к‚ЅPDGѓmЃ[ѓh‚©‚з‚МѓfЃ[ѓ^€Л‘¶‚Є‚ ‚й‚©‚р’І‚ЧЃC €Ѕ‚йЏкЌ‡‚НЃCѓfЃ[ѓ^€Л‘¶•У‚р€ш‚­
+	 * пїЅпїЅпїЅпїЅЕ—^пїЅпїЅпїЅпїЅк‚ЅCFGпїЅМѓmпїЅ[пїЅhпїЅЙ‘О‚пїЅпїЅДЃCпїЅпїЅпїЅпїЅЕ—^пїЅпїЅпїЅпїЅк‚ЅPDGпїЅmпїЅ[пїЅhпїЅпїЅпїЅпїЅМѓfпїЅ[пїЅ^пїЅЛ‘пїЅпїЅпїЅпїЅпїЅпїЅй‚©пїЅр’І‚ЧЃC пїЅпїЅпїЅпїЅкЌ‡пїЅНЃCпїЅfпїЅ[пїЅ^пїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
 	 * 
 	 * @param cfgNode
 	 * @param fromPDGNode
@@ -523,24 +524,24 @@ public class IntraProceduralPDG extends PDG {
 			throw new IllegalArgumentException();
 		}
 
-		// Љщ‚Й’І‚Ч‚Д‚ў‚йѓmЃ[ѓhЏкЌ‡‚Н‰Ѕ‚а‚µ‚И‚ў‚ЕѓЃѓ\ѓbѓh‚р”І‚Ї‚й
+		// пїЅпїЅЙ’пїЅпїЅЧ‚Д‚пїЅпїЅпїЅmпїЅ[пїЅhпїЅкЌ‡пїЅН‰пїЅпїЅпїЅпїЅпїЅпїЅИ‚пїЅпїЅЕѓпїЅпїЅ\пїЅbпїЅhпїЅр”І‚пїЅпїЅпїЅ
 		if (checkedCFGNodes.contains(cfgNode)) {
 			return;
 		}
 
-		// ‚Ѕ‚Б‚ЅЌЎ’І‚Ч‚ЅѓmЃ[ѓh‚рѓ`ѓFѓbѓN‚µ‚ЅѓmЃ[ѓh‚Й’З‰Б
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅЧ‚пїЅпїЅmпїЅ[пїЅhпїЅпїЅпїЅ`пїЅFпїЅbпїЅNпїЅпїЅпїЅпїЅпїЅmпїЅ[пїЅhпїЅЙ’З‰пїЅ
 		else {
 			checkedCFGNodes.add(cfgNode);
 		}
 
-		// cfgNode‚Єvariable‚рЋQЏЖ‚µ‚Д‚ў‚йЏкЌ‡‚НЃC
-		// cfgNode‚©‚зPDGNode‚рЌмђ¬‚µЃCfromPDGNode‚©‚зѓfЃ[ѓ^€Л‘¶•У‚р€ш‚­
+		// cfgNodeпїЅпїЅvariableпїЅпїЅпїЅQпїЅЖ‚пїЅпїЅД‚пїЅпїЅпїЅкЌ‡пїЅНЃC
+		// cfgNodeпїЅпїЅпїЅпїЅPDGNodeпїЅпїЅпїЅмђ¬пїЅпїЅпїЅCfromPDGNodeпїЅпїЅпїЅпїЅfпїЅ[пїЅ^пїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
 		if (cfgNode.getReferencedVariables().contains(variable)) {
 
 			final PDGNode<? extends CFGNode<?>> toPDGNode = this
 					.makeNode(cfgNode);
 
-			// fromѓmЃ[ѓh‚ЖtoѓmЃ[ѓh‚М‹——Ј‚Єи‡’l€И“а‚Е‚ ‚к‚ОѓGѓbѓW‚р€ш‚­
+			// fromпїЅmпїЅ[пїЅhпїЅпїЅtoпїЅmпїЅ[пїЅhпїЅМ‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅИ“пїЅпїЅЕ‚пїЅпїЅпїЅОѓGпїЅbпїЅWпїЅпїЅпїЅпїЅ
 			final int distance = Math.abs(toPDGNode.getCore().getFromLine()
 					- fromPDGNode.getCore().getToLine()) + 1;
 			if (distance <= this.dataDependencyDistance) {
@@ -548,14 +549,14 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// cfgNode‚Єvariable‚Й‘г“ь‚µ‚Д‚ў‚йЏкЌ‡‚НЃC
-		// ‚±‚к€ИЌ~‚МѓmЃ[ѓh‚МѓfЃ[ѓ^€Л‘¶‚Н’І‚Ч‚И‚ў
+		// cfgNodeпїЅпїЅvariableпїЅЙ‘пїЅпїЅД‚пїЅпїЅпїЅкЌ‡пїЅНЃC
+		// пїЅпїЅпїЅпїЅИЌ~пїЅМѓmпїЅ[пїЅhпїЅМѓfпїЅ[пїЅ^пїЅЛ‘пїЅпїЅН’пїЅпїЅЧ‚И‚пїЅ
 		if (cfgNode.getDefinedVariables(this.countObjectStateChange).contains(
 				variable)) {
 			return;
 		}
 
-		// cfgNode‚МѓtѓHѓЏЃ[ѓhѓmЃ[ѓh‚Й‘О‚µ‚Д‚аѓfЃ[ѓ^€Л‘¶‚р’І‚Ч‚й
+		// cfgNodeпїЅМѓtпїЅHпїЅпїЅпїЅ[пїЅhпїЅmпїЅ[пїЅhпїЅЙ‘О‚пїЅпїЅД‚пїЅпїЅfпїЅ[пїЅ^пїЅЛ‘пїЅпїЅр’І‚Ч‚пїЅ
 		else {
 			for (final CFGNode<?> forwardNode : cfgNode.getForwardNodes()) {
 				this.buildDataDependence(forwardNode, fromPDGNode, variable,
@@ -566,7 +567,7 @@ public class IntraProceduralPDG extends PDG {
 
 	/**
 	 * 
-	 * ‘ж€к€шђ”‚Е—^‚¦‚з‚к‚ЅѓmЃ[ѓh‚Й‘О‚µ‚ДЃC‘ж“с€шђ”‚Е—^‚¦‚з‚к‚Ѕblock‚ЙЉЬ‚Ь‚к‚й•¶‚Йђ§Њд€Л‘¶•У‚р€ш‚­
+	 * пїЅпїЅпїЅпїЅЕ—^пїЅпїЅпїЅпїЅк‚ЅпїЅmпїЅ[пїЅhпїЅЙ‘О‚пїЅпїЅДЃCпїЅпїЅпїЅпїЅЕ—^пїЅпїЅпїЅпїЅк‚ЅblockпїЅЙЉЬ‚Ь‚пїЅй•¶пїЅЙђпїЅпїЅпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
 	 * 
 	 * @param fromPDGNode
 	 * @param block
@@ -576,9 +577,9 @@ public class IntraProceduralPDG extends PDG {
 
 		for (final StatementInfo innerStatement : block.getStatements()) {
 
-			// ’P•¶‚МЏкЌ‡‚НЃCfromPDGNode‚©‚з‚Мђ§Њд€Л‘¶•У‚р€ш‚­
-			// CaseEntry‚МЏкЌ‡‚НЃCђ§Њд€Л‘¶•У‚Н‚ў‚з‚И‚ў
-			// Break•¶‚МЏкЌ‡ЃCContinue•¶‚МЏкЌ‡‚ађ§Њд€Л‘¶•У‚Н‚ў‚з‚И‚ў
+			// пїЅPпїЅпїЅпїЅМЏкЌ‡пїЅНЃCfromPDGNodeпїЅпїЅпїЅпїЅМђпїЅпїЅпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
+			// CaseEntryпїЅМЏкЌ‡пїЅНЃCпїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚Н‚пїЅпїЅпїЅИ‚пїЅ
+			// BreakпїЅпїЅпїЅМЏкЌ‡пїЅCContinueпїЅпїЅпїЅМЏкЌ‡пїЅпїЅпїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚Н‚пїЅпїЅпїЅИ‚пїЅ
 			if (innerStatement instanceof SingleStatementInfo
 					&& !(innerStatement instanceof BreakStatementInfo)
 					&& !(innerStatement instanceof ContinueStatementInfo)) {
@@ -587,19 +588,19 @@ public class IntraProceduralPDG extends PDG {
 				final Set<CFGNode<?>> dissolvedCFGNodes = this.cfgNodeFactory
 						.getDissolvedNodes(innerStatement);
 
-				// innerStatement‚Є•Ўђ”‚МCFGѓmЃ[ѓh‚Й•ЄЉ„‚і‚к‚Д‚ў‚ЅЏкЌ‡
+				// innerStatementпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅCFGпїЅmпїЅ[пїЅhпїЅЙ•пїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅпїЅпїЅкЌ‡
 				if (null != dissolvedCFGNodes) {
 					for (final CFGNode<? extends ExecutableElementInfo> dissolvedCFGNode : dissolvedCFGNodes) {
 
-						// •Є‰р‚і‚к‚ЅѓmЃ[ѓh‚ЄCFG‚ЙЉЬ‚Ь‚к‚Д‚ў‚И‚ў‚Ж‚«ЃiѓmЃ[ѓhЏW–с‚Й‚ж‚и‚И‚­‚И‚Б‚Ѕ‚Ж‚«Ѓj‚Н‚И‚Й‚а‚µ‚И‚ў
+						// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅпїЅmпїЅ[пїЅhпїЅпїЅCFGпїЅЙЉЬ‚Ь‚пїЅД‚пїЅпїЅИ‚пїЅпїЅЖ‚пїЅпїЅiпїЅmпїЅ[пїЅhпїЅWпїЅпїЅЙ‚пїЅпїЅИ‚пїЅпїЅИ‚пїЅпїЅпїЅпїЅЖ‚пїЅпїЅjпїЅН‚И‚Й‚пїЅпїЅпїЅпїЅИ‚пїЅ
 						if (!this.cfg.getAllNodes().contains(dissolvedCFGNode)) {
 							continue;
 						}
 
 						final ExecutableElementInfo core = dissolvedCFGNode
 								.getCore();
-						// •Є‰р‚і‚к‚ЅSingleStatementInfo‚МouterUnit‚Єblock‚Е‚И‚ўЏкЌ‡‚НЃC
-						// ђ§Њд€Л‘¶•У‚Н€ш‚©‚И‚ў
+						// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅSingleStatementInfoпїЅпїЅouterUnitпїЅпїЅblockпїЅЕ‚И‚пїЅпїЅкЌ‡пїЅНЃC
+						// пїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚Н€пїЅИ‚пїЅ
 						if (core instanceof SingleStatementInfo) {
 							if (!core.getOwnerSpace().equals(block)) {
 								continue;
@@ -611,7 +612,7 @@ public class IntraProceduralPDG extends PDG {
 					}
 				}
 
-				// •ЄЉ„‚і‚к‚Д‚ў‚И‚ўЏкЌ‡
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅИ‚пїЅпїЅкЌ‡
 				else {
 					final CFGNode<?> cfgNode = this.cfgNodeFactory
 							.getNode(innerStatement);
@@ -621,7 +622,7 @@ public class IntraProceduralPDG extends PDG {
 					}
 				}
 
-				// fromѓmЃ[ѓh‚ЖtoѓmЃ[ѓh‚М‹——Ј‚Єи‡’l€И“а‚Е‚ ‚к‚ОѓGѓbѓW‚р€ш‚­
+				// fromпїЅmпїЅ[пїЅhпїЅпїЅtoпїЅmпїЅ[пїЅhпїЅМ‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅИ“пїЅпїЅЕ‚пїЅпїЅпїЅОѓGпїЅbпїЅWпїЅпїЅпїЅпїЅ
 				for (final PDGNode<?> toPDGNode : toPDGNodes) {
 					final int distance = Math.abs(toPDGNode.getCore()
 							.getFromLine()
@@ -633,13 +634,13 @@ public class IntraProceduralPDG extends PDG {
 				}
 			}
 
-			// Block•¶‚МЏкЌ‡‚НЃCЏрЊЏ•t‚«•¶‚Е‚ ‚к‚ОЃC’P•¶‚МЋћ‚Ж“Ї‚¶Џ€—ќ
-			// ‚»‚¤‚Е‚И‚Ї‚к‚ОЃC‚і‚з‚Й“а•”‚р’І‚Ч‚й
+			// BlockпїЅпїЅпїЅМЏкЌ‡пїЅНЃCпїЅпїЅпїЅпїЅпїЅtпїЅпїЅпїЅпїЅпїЅЕ‚пїЅпїЅпїЅОЃCпїЅPпїЅпїЅпїЅМЋпїЅпїЅЖ“пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			// пїЅпїЅпїЅпїЅпїЅЕ‚И‚пїЅпїЅпїЅОЃCпїЅпїЅпїЅпїЅЙ“пїЅпїЅпїЅпїЅр’І‚Ч‚пїЅ
 			else if (innerStatement instanceof BlockInfo) {
 
 				if (innerStatement instanceof ConditionalBlockInfo) {
 
-					// fromPDGNode‚©‚зConditionalBlockInfo‚МЏрЊЏЋ®‚ЙѓGѓbѓW‚р€ш‚­
+					// fromPDGNodeпїЅпїЅпїЅпїЅConditionalBlockInfoпїЅМЏпїЅпїЅпїЅпїЅпїЅпїЅЙѓGпїЅbпїЅWпїЅпїЅпїЅпїЅ
 					{
 						final ConditionInfo condition = ((ConditionalBlockInfo) innerStatement)
 								.getConditionalClause().getCondition();
@@ -648,11 +649,11 @@ public class IntraProceduralPDG extends PDG {
 						final Set<CFGNode<?>> dissolvedCFGNodes = this.cfgNodeFactory
 								.getDissolvedNodes(condition);
 
-						// innerStatement‚Є•Ўђ”‚МCFGѓmЃ[ѓh‚Й•ЄЉ„‚і‚к‚Д‚ў‚ЅЏкЌ‡
+						// innerStatementпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅCFGпїЅmпїЅ[пїЅhпїЅЙ•пїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅпїЅпїЅкЌ‡
 						if (null != dissolvedCFGNodes) {
 							for (final CFGNode<? extends ExecutableElementInfo> dissolvedCFGNode : dissolvedCFGNodes) {
 
-								// •Є‰р‚і‚к‚ЅѓmЃ[ѓh‚ЄCFG‚ЙЉЬ‚Ь‚к‚Д‚ў‚И‚ў‚Ж‚«ЃiѓmЃ[ѓhЏW–с‚Й‚ж‚и‚И‚­‚И‚Б‚Ѕ‚Ж‚«Ѓj‚Н‚И‚Й‚а‚µ‚И‚ў
+								// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅпїЅmпїЅ[пїЅhпїЅпїЅCFGпїЅЙЉЬ‚Ь‚пїЅД‚пїЅпїЅИ‚пїЅпїЅЖ‚пїЅпїЅiпїЅmпїЅ[пїЅhпїЅWпїЅпїЅЙ‚пїЅпїЅИ‚пїЅпїЅИ‚пїЅпїЅпїЅпїЅЖ‚пїЅпїЅjпїЅН‚И‚Й‚пїЅпїЅпїЅпїЅИ‚пїЅ
 								if (!this.cfg.getAllNodes().contains(
 										dissolvedCFGNode)) {
 									continue;
@@ -660,8 +661,8 @@ public class IntraProceduralPDG extends PDG {
 
 								final ExecutableElementInfo core = dissolvedCFGNode
 										.getCore();
-								// •Є‰р‚і‚к‚ЅSingleStatementInfo‚МouterUnit‚Єblock‚Е‚И‚ўЏкЌ‡‚НЃC
-								// ђ§Њд€Л‘¶•У‚Н€ш‚©‚И‚ў
+								// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅSingleStatementInfoпїЅпїЅouterUnitпїЅпїЅblockпїЅЕ‚И‚пїЅпїЅкЌ‡пїЅНЃC
+								// пїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚Н€пїЅИ‚пїЅ
 								if (core instanceof SingleStatementInfo) {
 									if (!core.getOwnerSpace().equals(block)) {
 										continue;
@@ -673,7 +674,7 @@ public class IntraProceduralPDG extends PDG {
 							}
 						}
 
-						// •ЄЉ„‚і‚к‚Д‚ў‚И‚ўЏкЌ‡
+						// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅИ‚пїЅпїЅкЌ‡
 						else {
 							final CFGNode<?> cfgNode = this.cfgNodeFactory
 									.getNode(condition);
@@ -684,7 +685,7 @@ public class IntraProceduralPDG extends PDG {
 							}
 						}
 
-						// fromѓmЃ[ѓh‚ЖtoѓmЃ[ѓh‚М‹——Ј‚Єи‡’l€И“а‚Е‚ ‚к‚ОѓGѓbѓW‚р€ш‚­
+						// fromпїЅmпїЅ[пїЅhпїЅпїЅtoпїЅmпїЅ[пїЅhпїЅМ‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅИ“пїЅпїЅЕ‚пїЅпїЅпїЅОѓGпїЅbпїЅWпїЅпїЅпїЅпїЅ
 						for (final PDGNode<?> toPDGNode : toPDGNodes) {
 							final int distance = Math.abs(toPDGNode.getCore()
 									.getFromLine()
@@ -705,11 +706,11 @@ public class IntraProceduralPDG extends PDG {
 							final Set<CFGNode<?>> dissolvedCFGNodes = this.cfgNodeFactory
 									.getDissolvedNodes(expression);
 
-							// innerStatement‚Є•Ўђ”‚МCFGѓmЃ[ѓh‚Й•ЄЉ„‚і‚к‚Д‚ў‚ЅЏкЌ‡
+							// innerStatementпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅCFGпїЅmпїЅ[пїЅhпїЅЙ•пїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅпїЅпїЅкЌ‡
 							if (null != dissolvedCFGNodes) {
 								for (final CFGNode<? extends ExecutableElementInfo> dissolvedCFGNode : dissolvedCFGNodes) {
 
-									// •Є‰р‚і‚к‚ЅѓmЃ[ѓh‚ЄCFG‚ЙЉЬ‚Ь‚к‚Д‚ў‚И‚ў‚Ж‚«ЃiѓmЃ[ѓhЏW–с‚Й‚ж‚и‚И‚­‚И‚Б‚Ѕ‚Ж‚«Ѓj‚Н‚И‚Й‚а‚µ‚И‚ў
+									// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅпїЅmпїЅ[пїЅhпїЅпїЅCFGпїЅЙЉЬ‚Ь‚пїЅД‚пїЅпїЅИ‚пїЅпїЅЖ‚пїЅпїЅiпїЅmпїЅ[пїЅhпїЅWпїЅпїЅЙ‚пїЅпїЅИ‚пїЅпїЅИ‚пїЅпїЅпїЅпїЅЖ‚пїЅпїЅjпїЅН‚И‚Й‚пїЅпїЅпїЅпїЅИ‚пїЅ
 									if (!this.cfg.getAllNodes().contains(
 											dissolvedCFGNode)) {
 										continue;
@@ -717,8 +718,8 @@ public class IntraProceduralPDG extends PDG {
 
 									final ExecutableElementInfo core = dissolvedCFGNode
 											.getCore();
-									// •Є‰р‚і‚к‚ЅSingleStatementInfo‚МouterUnit‚Єblock‚Е‚И‚ўЏкЌ‡‚НЃC
-									// ђ§Њд€Л‘¶•У‚Н€ш‚©‚И‚ў
+									// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅSingleStatementInfoпїЅпїЅouterUnitпїЅпїЅblockпїЅЕ‚И‚пїЅпїЅкЌ‡пїЅНЃC
+									// пїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚Н€пїЅИ‚пїЅ
 									if (core instanceof SingleStatementInfo) {
 										if (!core.getOwnerSpace().equals(block)) {
 											continue;
@@ -730,7 +731,7 @@ public class IntraProceduralPDG extends PDG {
 								}
 							}
 
-							// •ЄЉ„‚і‚к‚Д‚ў‚И‚ўЏкЌ‡
+							// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅИ‚пїЅпїЅкЌ‡
 							else {
 								final CFGNode<?> cfgNode = this.cfgNodeFactory
 										.getNode(expression);
@@ -741,7 +742,7 @@ public class IntraProceduralPDG extends PDG {
 								}
 							}
 
-							// fromѓmЃ[ѓh‚ЖtoѓmЃ[ѓh‚М‹——Ј‚Єи‡’l€И“а‚Е‚ ‚к‚ОѓGѓbѓW‚р€ш‚­
+							// fromпїЅmпїЅ[пїЅhпїЅпїЅtoпїЅmпїЅ[пїЅhпїЅМ‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅИ“пїЅпїЅЕ‚пїЅпїЅпїЅОѓGпїЅbпїЅWпїЅпїЅпїЅпїЅ
 							for (final PDGNode<?> toPDGNode : toPDGNodes) {
 								final int distance = Math.abs(toPDGNode
 										.getCore().getFromLine()
@@ -756,17 +757,17 @@ public class IntraProceduralPDG extends PDG {
 					}
 				}
 
-				// elseѓuѓЌѓbѓN‚МЏкЌ‡‚Н‚±‚±‚Е‚НЃC€Л‘¶•У‚Н€ш‚©‚И‚ў
+				// elseпїЅuпїЅпїЅпїЅbпїЅNпїЅМЏкЌ‡пїЅН‚пїЅпїЅпїЅпїЅЕ‚НЃCпїЅЛ‘пїЅпїЅУ‚Н€пїЅИ‚пїЅ
 				else if (innerStatement instanceof ElseBlockInfo) {
 
 				}
 
-				// ConditionalBlockInfo‚Е‚И‚ўЏкЌ‡‚НЃC’PЏѓ‚Й€к‚Вђц‚йЃD
+				// ConditionalBlockInfoпїЅЕ‚И‚пїЅпїЅкЌ‡пїЅНЃCпїЅPпїЅпїЅпїЅЙ€пїЅВђпїЅпїЅпїЅD
 				else {
 					this.buildControlDependence(fromPDGNode,
 							(BlockInfo) innerStatement);
 
-					// try•¶‚МЏкЌ‡‚НЃCcatch•¶, finally•¶‚Й‚а€Л‘¶•У‚р€ш‚­
+					// tryпїЅпїЅпїЅМЏкЌ‡пїЅНЃCcatchпїЅпїЅ, finallyпїЅпїЅпїЅЙ‚пїЅпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
 					if (innerStatement instanceof TryBlockInfo) {
 						final SortedSet<CatchBlockInfo> catchBlocks = ((TryBlockInfo) innerStatement)
 								.getSequentCatchBlocks();
@@ -787,7 +788,7 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// if•¶‚МЏкЌ‡‚НЃCelse‚Ц‚М‘О‰ћ‚а‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ў
+		// ifпїЅпїЅпїЅМЏкЌ‡пїЅНЃCelseпїЅЦ‚М‘О‰пїЅпїЅпїЅпїЅпїЅпїЅИ‚пїЅпїЅпїЅО‚И‚пїЅИ‚пїЅ
 		if (block instanceof IfBlockInfo) {
 			final ElseBlockInfo elseBlock = ((IfBlockInfo) block)
 					.getSequentElseBlock();
@@ -796,7 +797,7 @@ public class IntraProceduralPDG extends PDG {
 			}
 		}
 
-		// for•¶‚МЊJ‚и•Ф‚µ•¶‚Ц‚М‘О‰ћ‚а‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ў
+		// forпїЅпїЅпїЅМЊJпїЅпїЅФ‚пїЅпїЅпїЅпїЅЦ‚М‘О‰пїЅпїЅпїЅпїЅпїЅпїЅИ‚пїЅпїЅпїЅО‚И‚пїЅИ‚пїЅ
 		if (block instanceof ForBlockInfo) {
 
 			final ForBlockInfo forBlock = (ForBlockInfo) block;
@@ -807,19 +808,19 @@ public class IntraProceduralPDG extends PDG {
 				final Set<CFGNode<?>> dissolvedCFGNodes = this.cfgNodeFactory
 						.getDissolvedNodes(expression);
 
-				// innerStatement‚Є•Ўђ”‚МCFGѓmЃ[ѓh‚Й•ЄЉ„‚і‚к‚Д‚ў‚ЅЏкЌ‡
+				// innerStatementпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅCFGпїЅmпїЅ[пїЅhпїЅЙ•пїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅпїЅпїЅкЌ‡
 				if (null != dissolvedCFGNodes) {
 					for (final CFGNode<? extends ExecutableElementInfo> dissolvedCFGNode : dissolvedCFGNodes) {
 
-						// •Є‰р‚і‚к‚ЅѓmЃ[ѓh‚ЄCFG‚ЙЉЬ‚Ь‚к‚Д‚ў‚И‚ў‚Ж‚«ЃiѓmЃ[ѓhЏW–с‚Й‚ж‚и‚И‚­‚И‚Б‚Ѕ‚Ж‚«Ѓj‚Н‚И‚Й‚а‚µ‚И‚ў
+						// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅпїЅmпїЅ[пїЅhпїЅпїЅCFGпїЅЙЉЬ‚Ь‚пїЅД‚пїЅпїЅИ‚пїЅпїЅЖ‚пїЅпїЅiпїЅmпїЅ[пїЅhпїЅWпїЅпїЅЙ‚пїЅпїЅИ‚пїЅпїЅИ‚пїЅпїЅпїЅпїЅЖ‚пїЅпїЅjпїЅН‚И‚Й‚пїЅпїЅпїЅпїЅИ‚пїЅ
 						if (!this.cfg.getAllNodes().contains(dissolvedCFGNode)) {
 							continue;
 						}
 
 						final ExecutableElementInfo core = dissolvedCFGNode
 								.getCore();
-						// •Є‰р‚і‚к‚ЅSingleStatementInfo‚МouterUnit‚Єblock‚Е‚И‚ўЏкЌ‡‚НЃC
-						// ђ§Њд€Л‘¶•У‚Н€ш‚©‚И‚ў
+						// пїЅпїЅпїЅпїЅпїЅпїЅпїЅк‚ЅSingleStatementInfoпїЅпїЅouterUnitпїЅпїЅblockпїЅЕ‚И‚пїЅпїЅкЌ‡пїЅНЃC
+						// пїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚Н€пїЅИ‚пїЅ
 						if (core instanceof SingleStatementInfo) {
 							if (!core.getOwnerSpace().equals(block)) {
 								continue;
@@ -831,7 +832,7 @@ public class IntraProceduralPDG extends PDG {
 					}
 				}
 
-				// •ЄЉ„‚і‚к‚Д‚ў‚И‚ўЏкЌ‡
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅИ‚пїЅпїЅкЌ‡
 				else {
 					final CFGNode<?> cfgNode = this.cfgNodeFactory
 							.getNode(expression);
@@ -841,7 +842,7 @@ public class IntraProceduralPDG extends PDG {
 					}
 				}
 
-				// fromѓmЃ[ѓh‚ЖtoѓmЃ[ѓh‚М‹——Ј‚Єи‡’l€И“а‚Е‚ ‚к‚ОѓGѓbѓW‚р€ш‚­
+				// fromпїЅmпїЅ[пїЅhпїЅпїЅtoпїЅmпїЅ[пїЅhпїЅМ‹пїЅпїЅпїЅпїЅпїЅи‡’lпїЅИ“пїЅпїЅЕ‚пїЅпїЅпїЅОѓGпїЅbпїЅWпїЅпїЅпїЅпїЅ
 				for (final PDGNode<?> toPDGNode : toPDGNodes) {
 					final int distance = Math.abs(toPDGNode.getCore()
 							.getFromLine()
@@ -865,17 +866,17 @@ public class IntraProceduralPDG extends PDG {
 			throw new IllegalArgumentException();
 		}
 
-		// Љщ‚Й’І‚Ч‚Д‚ў‚йѓmЃ[ѓhЏкЌ‡‚Н‰Ѕ‚а‚µ‚И‚ў‚ЕѓЃѓ\ѓbѓh‚р”І‚Ї‚й
+		// пїЅпїЅЙ’пїЅпїЅЧ‚Д‚пїЅпїЅпїЅmпїЅ[пїЅhпїЅкЌ‡пїЅН‰пїЅпїЅпїЅпїЅпїЅпїЅИ‚пїЅпїЅЕѓпїЅпїЅ\пїЅbпїЅhпїЅр”І‚пїЅпїЅпїЅ
 		if (checkedCFGNodes.contains(cfgNode)) {
 			return;
 		}
 
-		// ‚Ѕ‚Б‚ЅЌЎ’І‚Ч‚ЅѓmЃ[ѓh‚рѓ`ѓFѓbѓN‚µ‚ЅѓmЃ[ѓh‚Й’З‰Б
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅЧ‚пїЅпїЅmпїЅ[пїЅhпїЅпїЅпїЅ`пїЅFпїЅbпїЅNпїЅпїЅпїЅпїЅпїЅmпїЅ[пїЅhпїЅЙ’З‰пїЅ
 		else {
 			checkedCFGNodes.add(cfgNode);
 		}
 
-		// cfgNode‚Єvariable‚р’и‹`‚µ‚Д‚ў‚й‚М‚Е‚ ‚к‚ОЃCѓfЃ[ѓ^€Л‘¶•У‚р€ш‚­
+		// cfgNodeпїЅпїЅvariableпїЅпїЅпїЅ`пїЅпїЅпїЅД‚пїЅпїЅпїЅМ‚Е‚пїЅпїЅпїЅОЃCпїЅfпїЅ[пїЅ^пїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅ
 		if (cfgNode.getDefinedVariables(this.countObjectStateChange).contains(
 				variable)) {
 			final PDGNode<? extends CFGNode<?>> fromPDGNode = this
@@ -884,7 +885,7 @@ public class IntraProceduralPDG extends PDG {
 			return;
 		}
 
-		// cfgNode‚Єvariable‚р’и‹`‚µ‚Д‚ў‚И‚ўЏкЌ‡ЃC‚»‚МѓoѓbѓNѓЏЃ[ѓhѓmЃ[ѓh‚Й‘О‚µ‚ДЌД‹A“I‚ЙЏ€—ќ
+		// cfgNodeпїЅпїЅvariableпїЅпїЅпїЅ`пїЅпїЅпїЅД‚пїЅпїЅИ‚пїЅпїЅкЌ‡пїЅCпїЅпїЅпїЅМѓoпїЅbпїЅNпїЅпїЅпїЅ[пїЅhпїЅmпїЅ[пїЅhпїЅЙ‘О‚пїЅпїЅДЌД‹AпїЅIпїЅЙЏпїЅпїЅпїЅ
 		else {
 
 			for (final CFGNode<?> backwardNode : cfgNode.getBackwardNodes()) {
@@ -892,7 +893,7 @@ public class IntraProceduralPDG extends PDG {
 						checkedCFGNodes);
 			}
 
-			// ѓoѓbѓNѓЏЃ[ѓhѓmЃ[ѓh‚Є‚И‚ўЏкЌ‡‚НЃCParameterInNode‚©‚з€Л‘¶•У‚р€ш‚­•K—v‚Є‚ ‚й‰В”\ђ«‚ ‚и
+			// пїЅoпїЅbпїЅNпїЅпїЅпїЅ[пїЅhпїЅmпїЅ[пїЅhпїЅпїЅпїЅИ‚пїЅпїЅкЌ‡пїЅНЃCParameterInNodeпїЅпїЅпїЅпїЅЛ‘пїЅпїЅУ‚пїЅпїЅпїЅKпїЅvпїЅпїЅпїЅпїЅпїЅпїЅВ”\пїЅпїЅпїЅпїЅпїЅпїЅ
 			// if (0 == cfgNode.getBackwardNodes().size()) {
 			// final PDGParameterInNode parameterInNode = this.parameterInNodes
 			// .get(variable);
@@ -919,7 +920,7 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * €шђ”‚Е—^‚¦‚з‚к‚ЅCFGѓmЃ[ѓh‚©‚зPDGѓmЃ[ѓh‚рЌмђ¬‚·‚й
+	 * пїЅпїЅЕ—^пїЅпїЅпїЅпїЅк‚ЅCFGпїЅmпїЅ[пїЅhпїЅпїЅпїЅпїЅPDGпїЅmпїЅ[пїЅhпїЅпїЅпїЅмђ¬пїЅпїЅпїЅпїЅ
 	 * 
 	 * @param cfgNode
 	 * @return
@@ -937,7 +938,7 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * €шђ”‚Е—^‚¦‚з‚к‚ЅCFGѓmЃ[ѓh‚©‚зPDGѓmЃ[ѓh‚рЌмђ¬‚·‚й
+	 * пїЅпїЅЕ—^пїЅпїЅпїЅпїЅк‚ЅCFGпїЅmпїЅ[пїЅhпїЅпїЅпїЅпїЅPDGпїЅmпїЅ[пїЅhпїЅпїЅпїЅмђ¬пїЅпїЅпїЅпїЅ
 	 * 
 	 * @param cfgNode
 	 * @return
@@ -955,7 +956,7 @@ public class IntraProceduralPDG extends PDG {
 	}
 
 	/**
-	 * PDG‚МЌ\’z‚Й——p‚µ‚ЅCFG‚рЋж“ѕ
+	 * PDGпїЅМЌ\пїЅzпїЅЙ—пїЅпїЅpпїЅпїЅпїЅпїЅCFGпїЅпїЅпїЅж“ѕ
 	 * 
 	 * @return
 	 */

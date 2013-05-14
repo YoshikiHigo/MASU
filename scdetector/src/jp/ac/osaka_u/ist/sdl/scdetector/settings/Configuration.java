@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.DISSOLUTION;
+import sdl.ist.osaka_u.newmasu.cfg.DISSOLUTION;
+
 
 public final class Configuration {
 

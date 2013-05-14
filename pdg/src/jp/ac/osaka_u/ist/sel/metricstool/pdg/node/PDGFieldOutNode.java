@@ -1,7 +1,7 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGFieldOutNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGFieldOutNode;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CallableUnitInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.FieldInfo;
 
@@ -9,7 +9,7 @@ import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.FieldInfo;
 public class PDGFieldOutNode extends PDGDataNode<CFGFieldOutNode> implements PDGDataOutNode {
 
     /**
-     * ˆø”‚Å—^‚¦‚ç‚ê‚½field‚©‚çPDGFieldOutNode‚ğì¬‚µ‚Ä•Ô‚·
+     * ï¿½ï¿½Å—^ï¿½ï¿½ï¿½ï¿½ê‚½fieldï¿½ï¿½ï¿½ï¿½PDGFieldOutNodeï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½Ä•Ô‚ï¿½
      * 
      * @param field
      * @param unit

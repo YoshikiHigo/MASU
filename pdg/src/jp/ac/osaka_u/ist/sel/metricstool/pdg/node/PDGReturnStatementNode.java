@@ -1,11 +1,11 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGReturnStatementNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGReturnStatementNode;
 
 
 /**
- * Return•¶‚ğ•\‚·PDGƒm[ƒh
+ * Returnï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½PDGï¿½mï¿½[ï¿½h
  * 
  * @author higo
  *

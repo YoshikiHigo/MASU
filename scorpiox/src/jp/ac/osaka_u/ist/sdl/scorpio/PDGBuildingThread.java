@@ -2,8 +2,9 @@ package jp.ac.osaka_u.ist.sdl.scorpio;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.DISSOLUTION;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.DefaultCFGNodeFactory;
+import sdl.ist.osaka_u.newmasu.cfg.DISSOLUTION;
+import sdl.ist.osaka_u.newmasu.cfg.node.DefaultCFGNodeFactory;
+
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CallableUnitInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.pdg.IntraProceduralPDG;
 import jp.ac.osaka_u.ist.sel.metricstool.pdg.node.IPDGNodeFactory;

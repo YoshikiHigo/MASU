@@ -1,7 +1,7 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGExpressionNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGExpressionNode;
 
 
 public class PDGExpressionNode extends PDGNormalNode<CFGExpressionNode> {

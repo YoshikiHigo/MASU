@@ -6,12 +6,13 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGControlNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGControlNode;
+
 import jp.ac.osaka_u.ist.sel.metricstool.pdg.edge.PDGControlDependenceEdge;
 
 
 /**
- * PDGã‚Å§Œäƒm[ƒh‚ğ•\‚·ƒNƒ‰ƒX
+ * PDGï¿½ï¿½Åï¿½ï¿½ï¿½mï¿½[ï¿½hï¿½ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  * 
  * @author t-miyake
  *
@@ -19,7 +20,7 @@ import jp.ac.osaka_u.ist.sel.metricstool.pdg.edge.PDGControlDependenceEdge;
 public class PDGControlNode extends PDGNode<CFGControlNode> {
 
     /**
-     * ƒm[ƒh‚ÌW‡‚©‚çC§Œäƒm[ƒh‚Ì‚İ‚ğ’Šo‚µC‚»‚ÌSortedSet‚ğ•Ô‚·
+     * ï¿½mï¿½[ï¿½hï¿½ÌWï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½hï¿½Ì‚İ‚ğ’Šoï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½SortedSetï¿½ï¿½Ô‚ï¿½
      * 
      * @param nodes
      * @return
@@ -35,7 +36,7 @@ public class PDGControlNode extends PDGNode<CFGControlNode> {
     }
 
     /**
-     * CFGControlNode‚ğ—^‚¦‚ÄC‰Šú‰»
+     * CFGControlNodeï¿½ï¿½^ï¿½ï¿½ï¿½ÄCï¿½ï¿½ï¿½ï¿½
      * 
      * @param controlNode
      */
@@ -44,8 +45,8 @@ public class PDGControlNode extends PDGNode<CFGControlNode> {
     }
 
     /**
-     * ‚±‚Ì§Œäƒm[ƒh‚É§Œä‚³‚ê‚éƒm[ƒh‚ğ’Ç‰Á
-     * @param controlledNode §Œä‚³‚ê‚éƒm[ƒh
+     * ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½mï¿½[ï¿½hï¿½Éï¿½ï¿½ä‚³ï¿½ï¿½ï¿½mï¿½[ï¿½hï¿½ï¿½Ç‰ï¿½
+     * @param controlledNode ï¿½ï¿½ï¿½ä‚³ï¿½ï¿½ï¿½mï¿½[ï¿½h
      */
     public void addControlDependingNode(final PDGNode<?> controlledNode,
             final boolean trueDependence) {

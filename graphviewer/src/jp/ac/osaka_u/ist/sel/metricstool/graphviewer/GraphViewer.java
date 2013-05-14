@@ -9,13 +9,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.CFG;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.DISSOLUTION;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.IntraProceduralCFG;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.edge.CFGEdge;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGControlNode;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGNode;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.DefaultCFGNodeFactory;
 import jp.ac.osaka_u.ist.sel.metricstool.main.MetricsTool;
 import jp.ac.osaka_u.ist.sel.metricstool.main.Settings;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.DataManager;
@@ -51,8 +44,16 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+import sdl.ist.osaka_u.newmasu.cfg.CFG;
+import sdl.ist.osaka_u.newmasu.cfg.DISSOLUTION;
+import sdl.ist.osaka_u.newmasu.cfg.IntraProceduralCFG;
+import sdl.ist.osaka_u.newmasu.cfg.edge.CFGEdge;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGControlNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.DefaultCFGNodeFactory;
+
 /**
- * “ü—Í‚³‚ê‚½ƒvƒƒOƒ‰ƒ€‚ÌCFG‚Ü‚½‚ÍPDG‚ğgraphvizŒü‚¯‚Éo—Í‚·‚éƒ‚ƒWƒ…[ƒ‹
+ * ï¿½ï¿½Í‚ï¿½ï¿½ê‚½ï¿½vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CFGï¿½Ü‚ï¿½ï¿½ï¿½PDGï¿½ï¿½graphvizï¿½ï¿½Éoï¿½Í‚ï¿½ï¿½éƒ‚ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½
  * 
  * @author higo
  * 
@@ -63,7 +64,7 @@ public class GraphViewer extends MetricsTool {
 
 		try {
 
-			// ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚ğˆ—
+			// ï¿½Rï¿½}ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			final Options options = new Options();
 
 			{
@@ -141,12 +142,12 @@ public class GraphViewer extends MetricsTool {
 			final CommandLineParser parser = new PosixParser();
 			final CommandLine cmd = parser.parse(options, args);
 
-			// ‰ğÍ—pİ’è
+			// ï¿½ï¿½Í—pï¿½İ’ï¿½
 			Settings.getInstance().setLanguage(cmd.getOptionValue("l"));
 			Settings.getInstance().addTargetDirectory(cmd.getOptionValue("d"));
 			Settings.getInstance().setVerbose(true);
 
-			// î•ñ•\¦—pİ’è
+			// ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½pï¿½İ’ï¿½
 			{
 				final Class<?> metricstool = MetricsTool.class;
 				final Field out = metricstool.getDeclaredField("out");
@@ -181,14 +182,14 @@ public class GraphViewer extends MetricsTool {
 						});
 			}
 
-			// p ‚Æ s ‚ÍPDGÀ‘•‚Ì“s‡ãC“¯‚Éw’è‚Å‚«‚È‚¢
+			// p ï¿½ï¿½ s ï¿½ï¿½PDGï¿½ï¿½ï¿½ï¿½ï¿½Ì“sï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Éwï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½
 			if (cmd.hasOption("p") && cmd.hasOption("s")) {
 				System.err
 						.println("-p and -s cannot be used at the same time.");
 				System.exit(0);
 			}
 
-			// ‘ÎÛƒfƒBƒŒƒNƒgƒŠˆÈ‰º‚ÌJavaƒtƒ@ƒCƒ‹‚ğ“o˜^‚µC‰ğÍ
+			// ï¿½ÎÛƒfï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½È‰ï¿½ï¿½ï¿½Javaï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½
 			{
 				final GraphViewer viewer = new GraphViewer();
 				viewer.analyzeLibraries();
@@ -364,7 +365,7 @@ public class GraphViewer extends MetricsTool {
 					.replace("\\\\\"", "\\\\\\\""));
 			writer.write("\"");
 
-			// ƒm[ƒh‚ÌF
+			// ï¿½mï¿½[ï¿½hï¿½ÌF
 			if (cfg.getEnterNode() == entry.getKey()) {
 				writer.write(", fillcolor = aquamarine");
 			} else if (cfg.getExitNodes().contains(entry.getKey())) {
@@ -373,7 +374,7 @@ public class GraphViewer extends MetricsTool {
 				writer.write(", fillcolor = white");
 			}
 
-			// ƒm[ƒh‚ÌŒ`
+			// ï¿½mï¿½[ï¿½hï¿½ÌŒ`
 			if (entry.getKey() instanceof CFGControlNode) {
 				writer.write(", shape = diamond");
 			} else {
@@ -452,7 +453,7 @@ public class GraphViewer extends MetricsTool {
 					.replace("\\\\\"", "\\\\\\\""));
 			writer.write("\"");
 
-			// ƒm[ƒh‚ÌF
+			// ï¿½mï¿½[ï¿½hï¿½ÌF
 			if (entry.getKey() instanceof PDGMethodEnterNode) {
 				writer.write(", fillcolor = aquamarine");
 			} else if (pdg.getExitNodes().contains(entry.getKey())) {
@@ -465,7 +466,7 @@ public class GraphViewer extends MetricsTool {
 				writer.write(", fillcolor = white");
 			}
 
-			// ƒm[ƒh‚ÌŒ`
+			// ï¿½mï¿½[ï¿½hï¿½ÌŒ`
 			if (entry.getKey() instanceof PDGControlNode) {
 				writer.write(", shape = diamond");
 			} else if (entry.getKey() instanceof PDGDataInNode
@@ -508,14 +509,14 @@ public class GraphViewer extends MetricsTool {
 	static private void writeSDG(final InterProceduralPDG pdg,
 			final BufferedWriter writer) throws IOException {
 
-		// ƒm[ƒh‚ÌID‚ğì¬
+		// ï¿½mï¿½[ï¿½hï¿½ï¿½IDï¿½ï¿½ï¿½ì¬
 		int nodeID = 0;
 		final Map<PDGNode<?>, Integer> NODE_ID_MAP = new HashMap<PDGNode<?>, Integer>();
 		for (final PDGNode<?> node : pdg.getAllNodes()) {
 			NODE_ID_MAP.put(node, new Integer(nodeID++));
 		}
 
-		// ƒƒ\ƒbƒh“àƒOƒ‰ƒt‚ğì¬
+		// ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½tï¿½ï¿½ï¿½ì¬
 		int graphID = 0;
 		for (final IntraProceduralPDG unitPDG : pdg.getEntries()) {
 
@@ -530,7 +531,7 @@ public class GraphViewer extends MetricsTool {
 			writer.write("\";");
 			writer.newLine();
 
-			// ƒm[ƒhî•ñ‚Ìo—Í
+			// ï¿½mï¿½[ï¿½hï¿½ï¿½ï¿½Ìoï¿½ï¿½
 			for (final PDGNode<?> node : unitPDG.getAllNodes()) {
 				final Integer id = NODE_ID_MAP.get(node);
 				writer.write(id.toString());
@@ -539,7 +540,7 @@ public class GraphViewer extends MetricsTool {
 						"\\\\\"", "\\\\\\\""));
 				writer.write("\"");
 
-				// ƒm[ƒh‚ÌF
+				// ï¿½mï¿½[ï¿½hï¿½ÌF
 				if (unitPDG.getMethodEnterNode() instanceof PDGMethodEnterNode) {
 					writer.write(", fillcolor = aquamarine");
 				} else if (unitPDG.getExitNodes().contains(node)) {
@@ -548,7 +549,7 @@ public class GraphViewer extends MetricsTool {
 					writer.write(", fillcolor = white");
 				}
 
-				// ƒm[ƒh‚ÌŒ`
+				// ï¿½mï¿½[ï¿½hï¿½ÌŒ`
 				if (node instanceof PDGControlNode) {
 					writer.write(", shape = diamond");
 				} else {
@@ -559,10 +560,10 @@ public class GraphViewer extends MetricsTool {
 				writer.newLine();
 			}
 
-			// ƒGƒbƒWî•ñ‚Ìo—Í
+			// ï¿½Gï¿½bï¿½Wï¿½ï¿½ï¿½Ìoï¿½ï¿½
 			for (final PDGEdge edge : unitPDG.getAllEdges()) {
 
-				// ƒGƒbƒW‚ÌŠJn’¸“_‚ÆI—¹’¸“_‚ª‹¤‚Éƒƒ\ƒbƒh“à‚É‚ ‚é‚Æ‚«‚ÉCƒGƒbƒW‚ğ•`‰æ‚·‚é
+				// ï¿½Gï¿½bï¿½Wï¿½ÌŠJï¿½nï¿½ï¿½ï¿½_ï¿½ÆIï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Éƒï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉCï¿½Gï¿½bï¿½Wï¿½ï¿½`ï¿½æ‚·ï¿½ï¿½
 				if (!unitPDG.getAllNodes().contains(edge.getFromNode())
 						|| !unitPDG.getAllNodes().contains(edge.getToNode())) {
 					continue;
@@ -587,7 +588,7 @@ public class GraphViewer extends MetricsTool {
 			writer.newLine();
 		}
 
-		// ƒƒ\ƒbƒh‚ğ‚Ü‚½‚ª‚éƒGƒbƒWî•ñ‚ğo—Í
+		// ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½bï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
 		for (final PDGAcrossEdge acrossEdge : pdg.getAcrossEdges()) {
 			final PDGEdge edge = (PDGEdge) acrossEdge;
 			writer.write(NODE_ID_MAP.get(edge.getFromNode()).toString());

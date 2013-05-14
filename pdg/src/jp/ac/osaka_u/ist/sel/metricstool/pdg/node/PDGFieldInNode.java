@@ -1,7 +1,7 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGFieldInNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGFieldInNode;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CallableUnitInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.FieldInfo;
 
@@ -9,7 +9,7 @@ import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.FieldInfo;
 public class PDGFieldInNode extends PDGDataNode<CFGFieldInNode> implements PDGDataInNode {
 
     /**
-     * ˆø”‚Å—^‚¦‚ç‚ê‚½field‚©‚çPDGFieldInNode‚ğì¬‚µ‚Ä•Ô‚·
+     * ï¿½ï¿½Å—^ï¿½ï¿½ï¿½ï¿½ê‚½fieldï¿½ï¿½ï¿½ï¿½PDGFieldInNodeï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½Ä•Ô‚ï¿½
      * 
      * @param field
      * @param unit

@@ -1,11 +1,11 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGCaughtExceptionNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGCaughtExceptionNode;
 
 
 /**
- * catchß‚Ì®‚Ì•”•ª‚ğ•\‚·PDGƒm[ƒh
+ * catchï¿½ß‚Ìï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½PDGï¿½mï¿½[ï¿½h
  * 
  * @author higo
  *

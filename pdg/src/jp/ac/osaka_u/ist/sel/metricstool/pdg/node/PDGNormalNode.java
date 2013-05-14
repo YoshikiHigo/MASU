@@ -1,12 +1,12 @@
 package jp.ac.osaka_u.ist.sel.metricstool.pdg.node;
 
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.CFGNormalNode;
+import sdl.ist.osaka_u.newmasu.cfg.node.CFGNormalNode;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ExecutableElementInfo;
 
 
 /**
- * §Œäƒm[ƒhˆÈŠO‚Ìƒm[ƒh‚ğ•\‚·
+ * ï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½hï¿½ÈŠOï¿½Ìƒmï¿½[ï¿½hï¿½ï¿½\ï¿½ï¿½
  * 
  * @author higo
  *

@@ -39,7 +39,6 @@ import jp.ac.osaka_u.ist.sdl.scorpio.settings.REFERENCE_NORMALIZATION;
 import jp.ac.osaka_u.ist.sdl.scorpio.settings.SMALL_METHOD;
 import jp.ac.osaka_u.ist.sdl.scorpio.settings.VARIABLE_NORMALIZATION;
 import jp.ac.osaka_u.ist.sdl.scorpio.settings.VERBOSE;
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.DISSOLUTION;
 import jp.ac.osaka_u.ist.sel.metricstool.main.MetricsTool;
 import jp.ac.osaka_u.ist.sel.metricstool.main.Settings;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.DataManager;
@@ -75,6 +74,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+
+import sdl.ist.osaka_u.newmasu.cfg.DISSOLUTION;
 
 /**
  * プログラム依存グラフの同形なサブグラフ部分をコードクローンとして検出するプログラム 検出対象は引数で与えられる．

@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import jp.ac.osaka_u.ist.sel.metricstool.cfg.node.ICFGNodeFactory;
+import sdl.ist.osaka_u.newmasu.cfg.node.ICFGNodeFactory;
+
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ExecutableElementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.pdg.edge.PDGEdge;
 import jp.ac.osaka_u.ist.sel.metricstool.pdg.node.IPDGNodeFactory;
@@ -13,7 +14,7 @@ import jp.ac.osaka_u.ist.sel.metricstool.pdg.node.PDGNode;
 
 
 /**
- * PDG‚ğ•\‚·ƒNƒ‰ƒX
+ * PDGï¿½ï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  * 
  * @author t-miyake
  * 
@@ -21,20 +22,20 @@ import jp.ac.osaka_u.ist.sel.metricstool.pdg.node.PDGNode;
 public abstract class PDG {
 
     /**
-     * PDG‚ğ\¬‚·‚éƒm[ƒh
+     * PDGï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½h
      */
     protected final SortedSet<PDGNode<?>> nodes;
 
     /**
      * 
-     * ƒm[ƒhì¬‚É—p‚¢‚éƒtƒ@ƒNƒgƒŠ
+     * ï¿½mï¿½[ï¿½hï¿½ì¬ï¿½ï¿½ï¿½É—pï¿½ï¿½ï¿½ï¿½tï¿½@ï¿½Nï¿½gï¿½ï¿½
      */
     protected final IPDGNodeFactory pdgNodeFactory;
 
     protected final ICFGNodeFactory cfgNodeFactory;
 
     /**
-     * CFGƒm[ƒhƒtƒ@ƒNƒgƒŠ‚ÆPDGƒm[ƒhƒtƒ@ƒNƒgƒŠ‚ğ—^‚¦‚Ä‰Šú‰»
+     * CFGï¿½mï¿½[ï¿½hï¿½tï¿½@ï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½PDGï¿½mï¿½[ï¿½hï¿½tï¿½@ï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½
      * 
      * @param pdgNodeFactory
      * @param cfgNodeFactory
@@ -51,25 +52,25 @@ public abstract class PDG {
     }
 
     /**
-     * PDG‚ğ\’z‚·‚é
+     * PDGï¿½ï¿½ï¿½\ï¿½zï¿½ï¿½ï¿½ï¿½
      */
     protected abstract void buildPDG();
 
     /**
-     * PDG“à‚Ìƒm[ƒh”‚ğæ“¾
+     * PDGï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
      * 
-     * @return PDG“à‚Ìƒm[ƒh”
+     * @return PDGï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½hï¿½ï¿½
      */
     public final int getNumberOfNodes() {
         return this.nodes.size();
     }
 
     /**
-     * PDG‚Ìƒm[ƒh‚ğæ“¾C‚È‚¢ê‡‚Ínull‚ğ•Ô‚·
+     * PDGï¿½Ìƒmï¿½[ï¿½hï¿½ï¿½ï¿½æ“¾ï¿½Cï¿½È‚ï¿½ï¿½ê‡ï¿½ï¿½nullï¿½ï¿½Ô‚ï¿½
      * 
      * @param element
-     *            æ“¾‚µ‚½‚¢ƒm[ƒh‚É‘Î‰‚·‚é—v‘f
-     * @return ƒm[ƒh
+     *            ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½hï¿½É‘Î‰ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½f
+     * @return ï¿½mï¿½[ï¿½h
      */
     public final PDGNode<?> getNode(final ExecutableElementInfo element) {
 
@@ -82,18 +83,18 @@ public abstract class PDG {
     }
 
     /**
-     * PDG‚Ì‘Sƒm[ƒh‚ğ•Ô‚·
+     * PDGï¿½Ì‘Sï¿½mï¿½[ï¿½hï¿½ï¿½Ô‚ï¿½
      * 
-     * @return PDG‚Ì‘Sƒm[ƒh
+     * @return PDGï¿½Ì‘Sï¿½mï¿½[ï¿½h
      */
     public final SortedSet<? extends PDGNode<?>> getAllNodes() {
         return Collections.unmodifiableSortedSet(this.nodes);
     }
 
     /**
-     * PDG‚Ì‘SƒGƒbƒW‚ğ•Ô‚·
+     * PDGï¿½Ì‘Sï¿½Gï¿½bï¿½Wï¿½ï¿½Ô‚ï¿½
      * 
-     * @return PDG‚Ì‘SƒGƒbƒW
+     * @return PDGï¿½Ì‘Sï¿½Gï¿½bï¿½W
      */
     public final SortedSet<? extends PDGEdge> getAllEdges() {
         final SortedSet<PDGEdge> edges = new TreeSet<PDGEdge>();
@@ -105,9 +106,9 @@ public abstract class PDG {
     }
 
     /**
-     * PDG\’z‚É—p‚¢‚½ƒtƒ@ƒNƒgƒŠ‚ğ•Ô‚·
+     * PDGï¿½\ï¿½zï¿½É—pï¿½ï¿½ï¿½ï¿½ï¿½tï¿½@ï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
      * 
-     * @return PDG\’z‚É—p‚¢‚½ƒtƒ@ƒNƒgƒŠ
+     * @return PDGï¿½\ï¿½zï¿½É—pï¿½ï¿½ï¿½ï¿½ï¿½tï¿½@ï¿½Nï¿½gï¿½ï¿½
      */
     public IPDGNodeFactory getNodeFactory() {
         return this.pdgNodeFactory;
